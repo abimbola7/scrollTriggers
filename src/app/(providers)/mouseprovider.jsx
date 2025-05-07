@@ -62,13 +62,13 @@ const MouseProvider = ({ children }) => {
   const moveShape = contextSafe((e)=>{
     xTo.current(e.clientX)
     yTo.current(e.clientY)
-    // const { target } = e;     
-    // const targetClosest = target?.closest("a") || target?.closest("button") || target?.closest(".circle")
-    // const divClosest = target?.closest(".video1")
-    // const rulesClosest = target?.closest(".rules")
-    // setRulesState(rulesClosest)
-    // setMouseState(targetClosest);
-    // setDivState(divClosest);
+    const { target } = e;     
+    const targetClosest = target?.closest("a") || target?.closest("button") || target?.closest(".circle")
+    const divClosest = target?.closest(".video1")
+    const rulesClosest = target?.closest(".rules")
+    setRulesState(rulesClosest)
+    setMouseState(targetClosest);
+    setDivState(divClosest);
   })
   return (
     <div 
