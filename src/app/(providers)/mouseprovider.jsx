@@ -72,7 +72,7 @@ const MouseProvider = ({ children }) => {
   })
   return (
     <div 
-    className={`w-full min-h-screen bg-transparent`}
+    className={`w-full min-h-screen bg-red-500`}
     // onMouse
     ref={app}
     onMouseMove={moveShape}

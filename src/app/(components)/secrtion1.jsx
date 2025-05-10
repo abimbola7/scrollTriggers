@@ -8,11 +8,12 @@ import { SplitText } from 'gsap/SplitText'
 
 gsap.registerPlugin(TextPlugin, SplitText)
 
-const Section1 = () => {
+const Section1 = ({ sect1, setSect1 }) => {
   const containerRef = React.useRef();
   const [ mounted, setMounted ] = React.useState(false)
   const [ text1, setText1]  = React.useState(false)
   const [ text2, setText2]  = React.useState(false)
+  
   const timeline = React.useRef()
   const { context, contextSafe } = useGSAP(() => {
     setMounted(true)
@@ -41,6 +42,7 @@ const Section1 = () => {
         stagger : .05
       })
       .to(el, {
+        delay: .7,
         scale: requiredScale,
         duration: 3,
         ease: "power2.inOut",
@@ -62,8 +64,16 @@ const Section1 = () => {
       }, "+=0.5")
       .to(".split1", {
         opacity : 0,
-        duration : 1
-      }, "-=2.7")
+        duration : 1,
+        ease: "power2.inOut",
+        onComplete : () => setText2(true)
+      }, "-=3.5")
+      .to(".sect1", {
+        opacity : 0,
+        duration : 1,
+        ease: "power2.inOut",
+        onComplete : () => setSect1(true)
+      }, "-=3.5")
     }
 
     // console.log(split)
@@ -71,27 +81,31 @@ const Section1 = () => {
     dependencies : [mounted]
   })
   return (
-    <>
-      {
-        mounted && (
-        <div 
-        ref={containerRef}
-        className='w-full h-screen bg-white flex items-center justify-center text-black overflow-hidden'>
+        <div className='w-full h-screen fixed top-0 left-0 z-[10] bg-white sect1'>
           {
-            !text1 && (
-              <div className='w-full max-w-[300px] text-5xl text-1'>
-                <p className='text-left split overflow-hidden font-medium'>Oladosu</p>
-                <p className='text-right split overflow-hidden font-medium'>Abimbola</p>
-              </div>
+            mounted && (
+            <div 
+            ref={containerRef}
+            className='w-full h-screen bg-white flex items-center justify-center text-black overflow-x-hidden'>
+              {
+                !text1 && (
+                  <div className='w-full max-w-[300px] text-5xl text-1'>
+                    <p className='text-left split overflow-hidden font-medium'>Oladosu</p>
+                    <p className='text-right split overflow-hidden font-medium'>Abimbola</p>
+                  </div>
+                )
+              }
+              {
+                !text2 && (
+                  <div className='absolute text-center flex items-center justify-center top-0 left-0 border w-full h-screen'>
+                    <p className='text-[5vw] sm:text-[4vw] md:text-[2.7vw] font-medium split1'>A Creative Frontend Developer</p>
+                  </div>
+                )
+              }
+            </div>
             )
           }
-          <div className='absolute text-center flex items-center justify-center top-0 left-0 border w-full h-screen'>
-            <p className='text-[5vw] sm:text-[4vw] md:text-[2.7vw] font-medium split1'>A Creative Frontend Developer</p>
-          </div>
         </div>
-        )
-      }
-    </>
   )
 }
 

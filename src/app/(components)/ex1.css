@@ -1,0 +1,9 @@
+html, body {
+  height: 100%;
+}
+
+section:not(.first) {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+}
